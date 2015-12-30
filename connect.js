@@ -1,16 +1,4 @@
    // Configurable paths for the application
-   var appConfig = {
-       app: '.',
-       dist: 'dist',
-       hostname: '0.0.0.0',
-       port: 9009,
-       url: function(file) {
-           file = file || 'mocks/index.html';
-           return 'http://' + this.hostname + ':' + this.port + '/' + file;
-       },
-       livereload: 35729,
-       verbose: true
-   };
    module.exports = {
        options: {
            port: '<%= appConfig.port %>',
@@ -19,31 +7,11 @@
            livereload: '<%= appConfig.livereload %>',
            base: '<%= appConfig.app %>'
        },
-       proxies: [{
-           context: '/apps', // When the url contains this...
-           host: 'madhu.noip.me', // Proxy to this host
-           port: 8080,
-           https: false,
-           changeOrigin: true,
-           xforward: false,
-           headers: {
-               "x-custom-added-header": "value"
-           }
-       }, {
-           context: '/services/api/', // When the url contains this...
-           host: 'madhu.noip.me', // Proxy to this host
-           port: 8080,
-           https: false,
-           changeOrigin: true,
-           xforward: false,
-           headers: {
-               "x-custom-added-header": "value"
-           }
-       }],
+       proxies: '<%= proxies %>',
        livereload: {
            options: {
                open: {
-                   target: appConfig.url()
+                   target: '<%= appConfig.url() %>' 
                },
                middleware: function(connect, options) {
                    if (!Array.isArray(options.base)) {
@@ -63,7 +31,7 @@
                        '/vendor',
                        connect.static('./vendor')
                    ));
-                   middlewares.push(connect.static(appConfig.app));
+                   middlewares.push(connect.static("<%= appConfig.app %>"));
 
                    return middlewares;
                }
@@ -80,7 +48,7 @@
                            '/vendor',
                            connect.static('./vendor')
                        ),
-                       connect.static(appConfig.app)
+                       connect.static("<%= appConfig.app %>")
                    ];
                }
            }

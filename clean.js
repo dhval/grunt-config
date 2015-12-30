@@ -1,6 +1,6 @@
 module.exports = {
     dist: {
-        src: ['dist']
+        src: ["<%= targetDir %>"]
     },
     base: {
         src: ['dist/base-css']

@@ -1,9 +1,9 @@
 module.exports = {
     install: {
         options: {
-            verbose: true,
+            verbose: "<%= bowerVerbose %>",
             layout: 'byComponent',
-            targetDir: 'dist',
+            targetDir: "<%= targetDir %>",
             cleanTargetDir: true,
             cleanBowerDir: false
         }
